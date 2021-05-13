@@ -12,6 +12,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit, OnDestroy {
   private userSub!: Subscription;
   isAuthenticated = false;
+  isPhoneSize = false;
 
   constructor(private dataStorageService: DataStorageService, private auth: AuthService) { }
 
@@ -19,6 +20,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userSub = this.auth.user.subscribe(user => {
       this.isAuthenticated = !user ? false : true;
     });
+  }
+
+  onOpenOptions() {
+    this.isPhoneSize = !this.isPhoneSize
+  }
+
+  onResize(event: any) {
+    if(event.target.innerWidth < 780) {
+      this.isPhoneSize = true;
+    } else {
+      this.isPhoneSize = false;
+    }
   }
 
   onSaveData() {
