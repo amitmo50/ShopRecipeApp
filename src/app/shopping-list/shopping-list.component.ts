@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
+
 import * as fromApp from '../store/app.reducer';
 import { Ingredient } from './../shared/ingredient.model';
 import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
@@ -22,7 +23,8 @@ export class ShoppingListComponent implements OnInit {
   }
   
   onEditItem(index: number) {
-    this.store.dispatch(new ShoppingListActions.StartEdit(index))
+    this.store.dispatch(ShoppingListActions.startEdit({index}))
   }
   
 }
+ 
