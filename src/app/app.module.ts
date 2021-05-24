@@ -21,7 +21,6 @@ import { environment } from '../environments/environment';
   declarations: [
     AppComponent,
     HeaderComponent,
-   
   ],
   imports: [
     BrowserModule,
