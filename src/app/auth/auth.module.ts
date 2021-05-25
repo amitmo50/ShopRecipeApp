@@ -16,7 +16,7 @@ import { AuthRoutingModule } from './auth-routing.module';
         AlertComponent,
         PlaceholderDirective
     ],
-    imports:[
+    imports: [
         FormsModule,
         CommonModule,
         AuthRoutingModule

@@ -15,12 +15,12 @@ export class RecipeEffects {
         this.actions$.pipe(
             ofType(fromRecipeActions.fetchRecipes),
             switchMap(() => {
-                return this.http.get<Recipe[]>('https://ng-recipe-shoppinglistbook-default-rtdb.firebaseio.com/recipes.json')
+                return this.http.get<Recipe[]>('https://ng-recipe-shoppinglistbook-default-rtdb.firebaseio.com/recipes.json');
             }),
             map(recipes => {
                 return recipes.map(recipe => {
                     return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
-                })
+                });
             }),
             map(recipes => fromRecipeActions.setRecipes({recipes}))
         )
@@ -32,7 +32,7 @@ export class RecipeEffects {
             withLatestFrom(this.store.select('recipes')),
             switchMap(([actionData, recipesState]) => {
                 return this.http.put(
-                    'https://ng-recipe-shoppinglistbook-default-rtdb.firebaseio.com/recipes.json', 
+                    'https://ng-recipe-shoppinglistbook-default-rtdb.firebaseio.com/recipes.json',
                     recipesState.recipes
                 );
             })

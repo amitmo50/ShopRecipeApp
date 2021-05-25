@@ -8,6 +8,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 export class AlertComponent implements OnInit {
 
   @Input() message: string;
+  // tslint:disable-next-line: no-output-native
   @Output() close = new EventEmitter<void>();
 
   constructor() { }
@@ -15,7 +16,7 @@ export class AlertComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClose() {
+  onClose(): void {
     this.close.emit();
   }
 }

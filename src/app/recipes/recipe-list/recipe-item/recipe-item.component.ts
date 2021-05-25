@@ -8,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./recipe-item.component.css']
 })
 export class RecipeItemComponent implements OnInit {
-  @Input('recipeItem')
-  item!: Recipe;
+  // tslint:disable-next-line: no-input-rename
+  @Input('recipeItem') item!: Recipe;
   @Input() index!: number;
 
   constructor() { }

@@ -5,21 +5,21 @@ import * as ShoppingListActions from './shopping-list.actions';
 
 
 export interface State {
-    ingredients: Ingredient[],
-    editedIngredient: Ingredient,
-    editedIndex: number
+    ingredients: Ingredient[];
+    editedIngredient: Ingredient;
+    editedIndex: number;
 }
 
 const initialState: State = {
     ingredients: [
-        new Ingredient("Apples", 5),
-        new Ingredient("Tomatoes", 10),
+        new Ingredient('Apples', 5),
+        new Ingredient('Tomatoes', 10),
     ],
     editedIngredient: null,
     editedIndex: -1
 };
 
-const _shoppingListReducer = createReducer(
+const ShoppingListReducer = createReducer(
     initialState,
     on(
         ShoppingListActions.addIngredient,
@@ -67,7 +67,7 @@ const _shoppingListReducer = createReducer(
             ...state,
             editedIndex: action.index,
             editedIngredient: {...state.ingredients[action.index] }
-        })  
+        })
     ),
     on(
         ShoppingListActions.stopEdit,
@@ -77,8 +77,9 @@ const _shoppingListReducer = createReducer(
             editedIngredient: null
         })
     )
-)
+);
 
+// tslint:disable-next-line: typedef
 export function shoppingListReducer(state: State, action: Action) {
-    return _shoppingListReducer(state, action);
+    return ShoppingListReducer(state, action);
 }

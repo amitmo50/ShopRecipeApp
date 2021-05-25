@@ -26,10 +26,10 @@ const handleAuthentication = (
 
 const handleError = (errorRes: HttpErrorResponse) => {
     let errorMessage = 'An unknown error occurred!';
-    if(!errorRes.error || !errorRes.error.error) {
+    if (!errorRes.error || !errorRes.error.error) {
         return of(fromAuthActions.authenticateFail({errorMessage}));
     }
-    switch(errorRes.error.error.message){
+    switch (errorRes.error.error.message){
         case 'EMAIL_NOT_FOUND':
           errorMessage = 'There is no user record corresponding to this identifier. The user may have been deleted';
           break;
@@ -49,8 +49,8 @@ const handleError = (errorRes: HttpErrorResponse) => {
             errorMessage = 'We have blocked all requests from this device due to unusual activity. Try again later.';
             break;
     }
-    return of(fromAuthActions.authenticateFail({errorMessage}));;
-}
+    return of(fromAuthActions.authenticateFail({errorMessage}));
+};
 
 @Injectable()
 
@@ -128,28 +128,28 @@ export class AuthEffects {
         ofType(fromAuthActions.autoLogin),
         map(() => {
             const userData: {
-                email: string, 
-                id: string, 
-                _token: string, 
+                email: string,
+                id: string,
+                _token: string,
                 _tokenExpiration: string} = JSON.parse(localStorage.getItem('userData'));
 
-            if(!userData) {
+            if (!userData) {
                 return {type: 'DUMMY'};
             }
-    
+
             const loadedUser = new User(
-                userData.email, 
-                userData.id, 
-                userData._token, 
+                userData.email,
+                userData.id,
+                userData._token,
                 new Date(userData._tokenExpiration));
 
-            if(loadedUser.token) {
+            if (loadedUser.token) {
                 const expirationDuration = new Date(userData._tokenExpiration).getTime() - new Date().getTime();
                 this.auth.setLogoutTimer(expirationDuration);
-                return fromAuthActions.authenticateSuccess({ 
-                    email: loadedUser.email, 
-                    userId: loadedUser.id, 
-                    token: loadedUser.token, 
+                return fromAuthActions.authenticateSuccess({
+                    email: loadedUser.email,
+                    userId: loadedUser.id,
+                    token: loadedUser.token,
                     expirationDate: new Date(userData._tokenExpiration),
                     redirect: false
                 });
@@ -178,8 +178,4 @@ export class AuthEffects {
     { dispatch: false }
   );
   constructor(private actions$: Actions, private http: HttpClient, private auth: AuthService, private router: Router){}
-
-
-
-    
 }

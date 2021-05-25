@@ -1,6 +1,6 @@
-import { Action, createReducer, on } from "@ngrx/store";
-import { User } from "../user.model";
-import * as fromAuthActions from "./auth.actions";
+import { Action, createReducer, on } from '@ngrx/store';
+import { User } from '../user.model';
+import * as fromAuthActions from './auth.actions';
 
 export interface State {
     user: User;
@@ -14,7 +14,7 @@ const initialState: State = {
     loading: false,
 };
 
-const _authReducer = createReducer(
+const authReducer = createReducer(
     initialState,
     on(
         fromAuthActions.loginStart,
@@ -23,7 +23,7 @@ const _authReducer = createReducer(
             ...state,
             authError: null,
             loading: true
-        })  
+        })
     ),
     on(
         fromAuthActions.authenticateSuccess,
@@ -32,9 +32,9 @@ const _authReducer = createReducer(
             authError: null,
             loading: false,
             user: new User(
-                action.email, 
-                action.userId, 
-                action.token, 
+                action.email,
+                action.userId,
+                action.token,
                 action.expirationDate
             )
         })
@@ -64,6 +64,7 @@ const _authReducer = createReducer(
     ),
 );
 
+// tslint:disable-next-line: typedef
 export function AuthReducer(state: State, action: Action) {
-    return _authReducer(state, action);
+    return authReducer(state, action);
 }

@@ -12,7 +12,7 @@ import * as ShoppingListActions from '../shopping-list/store/shopping-list.actio
   styleUrls: ['./shopping-list.component.css']
 })
 export class ShoppingListComponent implements OnInit {
-  ingredients!:Observable<{ingredients: Ingredient[]}>;
+  ingredients!: Observable<{ingredients: Ingredient[]}>;
 
   constructor(
     private store: Store<fromApp.AppState>
@@ -21,10 +21,8 @@ export class ShoppingListComponent implements OnInit {
   ngOnInit(): void {
     this.ingredients = this.store.select('shoppingList');
   }
-  
-  onEditItem(index: number) {
-    this.store.dispatch(ShoppingListActions.startEdit({index}))
+
+  onEditItem(index: number): void {
+    this.store.dispatch(ShoppingListActions.startEdit({index}));
   }
-  
 }
- 

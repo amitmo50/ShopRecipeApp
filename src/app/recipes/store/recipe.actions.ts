@@ -37,4 +37,4 @@ export const deleteRecipe = createAction(
 
 export const storeRecipes = createAction(
     '[Recipe] Store Recipe'
-)
+);

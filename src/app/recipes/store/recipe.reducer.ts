@@ -10,7 +10,7 @@ const initialState: State = {
     recipes: [],
 };
 
-const _recipeReducer = createReducer(
+const recipeReducer = createReducer(
     initialState,
     on(
         fromRecipeAction.setRecipes,
@@ -31,7 +31,7 @@ const _recipeReducer = createReducer(
         (state, action) => ({
             ...state,
             recipes: state.recipes.map((recipe, index) => {
-                return index === action.index ? {...action.newRecipe} : recipe
+                return index === action.index ? {...action.newRecipe} : recipe;
             })
         })
     ),
@@ -42,9 +42,10 @@ const _recipeReducer = createReducer(
             recipes: state.recipes.filter((_ , index) => index !== action.index)
         })
     )
-)
+);
 
 
+// tslint:disable-next-line: typedef
 export function RecipeReducer(state: State, action: Action) {
-    return _recipeReducer(state, action);
+    return recipeReducer(state, action);
 }

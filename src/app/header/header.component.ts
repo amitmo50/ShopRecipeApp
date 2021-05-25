@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 
 import * as fromApp from '../store/app.reducer';
-import * as AuthAction from '../auth/store/auth.actions'; 
+import * as AuthAction from '../auth/store/auth.actions';
 import * as fromRecipeActions from '../recipes/store/recipe.actions';
 
 
@@ -29,31 +29,31 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  onOpenOptions() {
-    this.isPhoneSize = !this.isPhoneSize
+  onOpenOptions(): void {
+    this.isPhoneSize = !this.isPhoneSize;
   }
 
-  onResize(event: any) {
-    if(event.target.innerWidth < 780) {
+  onResize(event: any): void {
+    if (event.target.innerWidth < 780) {
       this.isPhoneSize = true;
     } else {
       this.isPhoneSize = false;
     }
   }
 
-  onSaveData() {
+  onSaveData(): void {
     this.store.dispatch(fromRecipeActions.storeRecipes());
   }
 
-  onFetchData() {
+  onFetchData(): void {
     this.store.dispatch(fromRecipeActions.fetchRecipes());
   }
 
-  onLogout() {
+  onLogout(): void {
     this.store.dispatch(AuthAction.logout());
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.userSub.unsubscribe();
   }
 

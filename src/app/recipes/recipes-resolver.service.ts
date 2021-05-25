@@ -11,7 +11,7 @@ import * as fromRecipeAction from '../recipes/store/recipe.actions';
 
 
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
 export class RecipesResolverService implements Resolve<{recipes: Recipe[]}>{
     constructor(
@@ -19,18 +19,19 @@ export class RecipesResolverService implements Resolve<{recipes: Recipe[]}>{
         private actions$: Actions
         ){}
 
+    // tslint:disable-next-line: typedef
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
         return this.store.select('recipes').pipe(
             take(1),
             map(recipeState => recipeState.recipes),
             switchMap(recipes => {
-                if(recipes.length === 0) {
+                if (recipes.length === 0) {
                     this.store.dispatch(fromRecipeAction.fetchRecipes());
                     return this.actions$.pipe(
                         ofType(fromRecipeAction.setRecipes),
                         take(1)
-                    )
-                }else {
+                    );
+                } else {
                     return of({recipes});
                 }
             })

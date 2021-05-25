@@ -25,6 +25,7 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.pipe(map(params => {
+      // tslint:disable-next-line: no-string-literal
       return +params['id'];
     }),
     switchMap(id => {
@@ -34,7 +35,7 @@ export class RecipeDetailComponent implements OnInit {
     map(recipesState => {
       return recipesState.recipes.find((recipe, index) => {
         return index === this.id;
-      }); 
+      });
     })
     )
     .subscribe(recipe =>
@@ -42,16 +43,16 @@ export class RecipeDetailComponent implements OnInit {
     );
   }
 
-  addToShoppingList() {
-    this.store.dispatch(ShoppingListActions.addIngredients({ingredients: this.recipe.ingredients}))
+  addToShoppingList(): void {
+    this.store.dispatch(ShoppingListActions.addIngredients({ingredients: this.recipe.ingredients}));
   }
 
-  onEditRecipe() {
+  onEditRecipe(): void {
     this.router.navigate(['edit'], {relativeTo: this.route});
   }
 
-  onDelete(){
-    this.store.dispatch(fromRecipeAction.deleteRecipe({index: this.id}))
+  onDelete(): void {
+    this.store.dispatch(fromRecipeAction.deleteRecipe({index: this.id}));
     this.router.navigate(['/recipes'], {relativeTo: this.route});
   }
 

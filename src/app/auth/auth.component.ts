@@ -30,39 +30,39 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.storeSub = this.store.select('auth').subscribe(authState => {
       this.isLoading = authState.loading;
       this.error = authState.authError;
-      if(this.error) {
+      if (this.error) {
         this.showErrorAlert(this.error);
       }
     });
   }
 
-  onSwitchMode() {
-    this.isLoginMode = !this.isLoginMode; 
+  onSwitchMode(): void {
+    this.isLoginMode = !this.isLoginMode;
   }
 
-  onSubmit(form: NgForm) {
-    if(!form.value) {
-      return
+  onSubmit(form: NgForm): void {
+    if (!form.value) {
+      return;
     }
     const email = form.value.email;
     const password = form.value.password;
 
-    if(this.isLoginMode) {
+    if (this.isLoginMode) {
       this.store.dispatch(AuthAction.loginStart({email, password}));
-    }else {
+    } else {
       this.store.dispatch(AuthAction.signupStart({email, password}));
     }
     form.reset();
   }
 
-  ngOnDestroy() {
-    if(this.componentSub) {
+  ngOnDestroy(): void {
+    if (this.componentSub) {
       this.componentSub.unsubscribe();
     }
     this.storeSub.unsubscribe();
   }
 
-  private showErrorAlert(errorMessage: string) {
+  private showErrorAlert(errorMessage: string): void {
     const alertCompFactory = this.conponentFactoryResolver.resolveComponentFactory(AlertComponent);
     const hostViewContainerRef = this.alertHost.viewContainerRef;
     hostViewContainerRef.clear();
